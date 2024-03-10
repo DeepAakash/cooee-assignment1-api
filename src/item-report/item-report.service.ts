@@ -2,7 +2,6 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { ItemReport } from './schemas/itemReport.schema';
 import mongoose from 'mongoose';
-import { AggrIRSchema } from './schemas/aggrIR.schema';
 import { Event } from 'src/event/schemas/event.schema';
 
 @Injectable()
@@ -11,14 +10,12 @@ export class ItemReportService {
         @InjectModel(ItemReport.name)
         private iRModel: mongoose.Model<ItemReport>,
         @InjectModel(Event.name)
-        private eventModel: mongoose.Model<Event>,
-        @InjectModel(AggrIRSchema.name)
-        private aggrIRModel: mongoose.Model<AggrIRSchema>
+        private eventModel: mongoose.Model<Event>
     ){
 
     }
 
-    async findAll(): Promise<AggrIRSchema[]>{
+    async findAll(): Promise<AggregatedData[]>{
         const pipeline1: ItemReport[] = await this.eventModel.aggregate([
             {
               '$group': {
@@ -26,7 +23,7 @@ export class ItemReportService {
                   'date': {
                     '$dateToString': {
                       'format': '%Y-%m-%dT%H:00:00.000Z', 
-                      'date': '$occurred'
+                      'date': {'$toDate': '$occurred'}
                     }
                   }, 
                   'itemID': '$item.id', 
@@ -62,7 +59,7 @@ export class ItemReportService {
             }
           ]).exec();
 
-        const pipeline2: AggrIRSchema[] = await this.iRModel.aggregate([
+        const pipeline2: AggregatedData[] = await this.iRModel.aggregate([
             {
               '$group': {
                 '_id': {
