@@ -1,8 +1,9 @@
+// Interface for final output: Table Data 
 interface AggregatedData {
-    DateTime: Date;
-    ItemID: string;
-    ItemName: string;
-    ViewCount: number;
-    AddToCartCount: number;
-    PurchaseCount: number;
-  }
+  ViewCount: number;
+  AddToCartCount: number;
+  PurchaseCount: number;
+  DateTime: Date;
+  ItemID: string;
+  ItemName: string;
+}
