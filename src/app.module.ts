@@ -5,6 +5,7 @@ import { EventModule } from './event/event.module';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ItemReportModule } from './item-report/item-report.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -14,7 +15,8 @@ import { ItemReportModule } from './item-report/item-report.module';
     }),
     MongooseModule.forRoot(process.env.DB_URI),
     EventModule,
-    ItemReportModule],
+    ItemReportModule,
+    AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
