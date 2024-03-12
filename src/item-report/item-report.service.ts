@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { ItemReport } from './schemas/itemReport.schema';
 import mongoose from 'mongoose';
 import { Event } from 'src/event/schemas/event.schema';
+import {Query} from 'express-serve-static-core'
 
 @Injectable()
 export class ItemReportService {
@@ -122,4 +123,75 @@ export class ItemReportService {
 
         return pipeline2;
     }
+
+  // To find aaccording to given filter of the Item Name 
+  async findAllByName(query: { keyword: string }): Promise<AggregatedData[]> {
+    const { keyword } = query;
+    const pipeline: AggregatedData[] = await this.iRModel.aggregate([
+        {
+            $match: {
+                itemName: {
+                    $regex: new RegExp(keyword, 'i'),
+                }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    date: '$_id.date',
+                    itemID: '$_id.itemID',
+                    itemName: '$itemName'
+                },
+                ViewCount: {
+                    $sum: {
+                        $cond: [
+                            { $eq: ['$event', 'View Item'] },
+                            '$count',
+                            0
+                        ]
+                    }
+                },
+                AddToCartCount: {
+                    $sum: {
+                        $cond: [
+                            { $eq: ['$event', 'Add To Cart'] },
+                            '$count',
+                            0
+                        ]
+                    }
+                },
+                PurchaseCount: {
+                    $sum: {
+                        $cond: [
+                            { $eq: ['$event', 'Purchase'] },
+                            '$count',
+                            0
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            $project: {
+                _id: 0,
+                DateTime: '$_id.date',
+                ItemID: '$_id.itemID',
+                ItemName: '$_id.itemName',
+                ViewCount: 1,
+                AddToCartCount: 1,
+                PurchaseCount: 1
+            }
+        },
+        {
+            $sort: {
+                DateTime: 1,
+                ViewCount: -1,
+                AddToCartCount: -1
+            }
+        }
+    ]).exec();
+
+    return pipeline;
+}
+
 }
