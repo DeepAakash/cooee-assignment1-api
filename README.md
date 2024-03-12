@@ -3,7 +3,7 @@
 </p>
 
 [circleci-image]: https://github.com/DeepAakash/cooee-project1/blob/main/src/assets/images/cooee-logo.png
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+[circleci-url]: https://github.com/DeepAakash/cooee-project1/blob/main/src/assets/images/cooee-logo.png
 
 [circleci-image]: https://github.com/DeepAakash/cooee-project1/blob/main/src/assets/images/cooee-logo.png
 
