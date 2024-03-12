@@ -1,9 +1,7 @@
 {
     "version": 2,
     "env": {
-      "MONGO_URI": "@DB_URI",
-      "JWT_SECRET": "@JWT_SECRET",
-      "JWT_EXPIRES": "@JWT_EXPIRES"
+      "MONGO_URI": "@DB_URI"
     },
     "builds": [
       {
