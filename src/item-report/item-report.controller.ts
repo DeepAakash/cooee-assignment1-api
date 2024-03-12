@@ -11,13 +11,9 @@ export class ItemReportController {
 
     }
 
+    // Function to get the data with or without filter ITEM NAME  from table after creating materialised view 
     @Get()
-    async getAllIR(): Promise<AggregatedData[]>{
-        return this.iRService.findAll();
-    }
-
-    @Get('search')
-    async getAllByName(@Query('keyword') keyword: string): Promise<AggregatedData[]> {
-        return this.iRService.findAllByName({ keyword });
+    async getAllIR(@Query('keyword') keyword: string): Promise<AggregatedData[]>{
+        return this.iRService.findAll({ keyword });
     }
 }

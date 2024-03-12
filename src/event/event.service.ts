@@ -12,6 +12,7 @@ export class EventService {
         
     }
 
+    // Function to create a new entry in the collection 
     async create(event: CreateEventDTO): Promise<Event>{
         try{
             const res = await this.eventModel.create(event);

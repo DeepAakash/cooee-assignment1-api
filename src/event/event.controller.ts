@@ -9,6 +9,7 @@ export class EventController {
 
     }
 
+    // Function to create a new entry in the collection 
     @Post()
     @UseGuards(AuthGuard())
     async createEvent(
