@@ -15,7 +15,6 @@ export class ItemReportService {
   ) {}
 
   async findAll(query: { keyword: string }): Promise<AggregatedData[]> {
-
     // Creating the Materialised View from event table using aggregation pipeline
     const pipeline1: ItemReport[] = await this.eventModel
       .aggregate([
@@ -64,7 +63,6 @@ export class ItemReportService {
         },
       ])
       .exec();
-
 
     // To fetch data aaccording to given filter of the Item Name. If filter is not given return the whole data using aggregation pipeline
     const { keyword } = query;
@@ -123,5 +121,29 @@ export class ItemReportService {
       .exec();
 
     return pipeline2;
+  }
+
+  async getAllUniqueItemNames(): Promise<string[]> {
+    // To get all the unique items by name and sorted.
+    const result = await this.iRModel.aggregate([
+      {
+        '$group': {
+          '_id': '$itemName'
+        }
+      }, {
+        '$project': {
+          '_id': 0, 
+          'itemName': '$_id'
+        }
+      }, {
+        '$sort': {
+          'itemName': 1
+        }
+      }
+    ])
+    .exec();
+
+    // Mapping and sending an array of string of unique item names
+    return result.map((item: any) => item.itemName);
   }
 }

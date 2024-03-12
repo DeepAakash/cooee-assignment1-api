@@ -16,4 +16,10 @@ export class ItemReportController {
     async getAllIR(@Query('keyword') keyword: string): Promise<AggregatedData[]>{
         return this.iRService.findAll({ keyword });
     }
+
+    // Function to get all unique item names(itemName) from collection itemReport
+    @Get('unique')
+    async getAllUniqueIN(): Promise<string[]>{
+        return this.iRService.getAllUniqueItemNames();
+    }
 }
