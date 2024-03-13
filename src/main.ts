@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
+import { CorsOptions } from '@nestjs/common/interfaces/external/cors-options.interface';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -10,11 +11,19 @@ async function bootstrap() {
   app.setGlobalPrefix('api');
 
   // To allow port 4200 access the data
-  app.enableCors({
+  // app.enableCors({
+  //   origin: [
+  //     'http://localhost:4200']
+  // })
+
+  // To allow port 4200 and vercel access the data
+  const corsOptions: CorsOptions = {
     origin: [
       'http://localhost:4200', 
-      'https://cooee-project1.vercel.app']
-  })
+      'https://cooee-project1.vercel.app'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  };
 
   await app.listen(3000);
 }
