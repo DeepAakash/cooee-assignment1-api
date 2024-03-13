@@ -18,7 +18,10 @@
                 "POST",
                 "PUT",
                 "DELETE"
-            ]
+            ],
+            "headers":{
+                "Access-Control allow origin":"*"
+            }
         }
     ]
 }
