@@ -13,7 +13,7 @@ async function bootstrap() {
   app.enableCors({
     origin: [
       'http://localhost:4200', 
-      'https://cooee-project1-api.vercel.app']
+      'https://cooee-project1.vercel.app']
   })
 
   await app.listen(3000);
