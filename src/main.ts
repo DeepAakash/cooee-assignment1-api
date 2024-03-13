@@ -11,7 +11,9 @@ async function bootstrap() {
 
   // To allow port 4200 access the data
   app.enableCors({
-    origin: ["http://localhost:4200"]
+    origin: [
+      'http://localhost:4200', 
+      'https://cooee-project1.vercel.app']
   })
 
   await app.listen(3000);
