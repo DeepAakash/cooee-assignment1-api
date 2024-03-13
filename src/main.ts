@@ -22,17 +22,27 @@ async function bootstrap() {
     'https://cooee-project1.vercel.app',
     // Add more origins as needed
   ];
-  
+
   // To allow port 4200 and vercel access the data
-  const corsOptions: CorsOptions = {
-    origin: allowedOrigins,
-    methods: ['GET', 'POST', 'PUT', 'DELETE'], // Add the HTTP methods you want to allow
-    allowedHeaders: ['Content-Type', 'Authorization'], // Add the headers you want to allow
-    credentials: true, // Enable credentials such as cookies and authorization headers
-  };
+  const cors = require('cors');
+  const corsOptions ={
+    origin:allowedOrigins, 
+    credentials:true,            //access-control-allow-credentials:true
+    optionSuccessStatus:200
+}
 
-  app.enableCors(corsOptions);
+  app.use(cors(corsOptions));
 
-  await app.listen(3000);
+  // await app.listen(3000);
+
+  let port: number;
+  if (process.env.NODE_ENV === 'production') {
+    // Use the port specified by the hosting environment in production
+    port = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
+  } else {
+    port = 3000; // Use port 3000 for development
+  }
+
+  await app.listen(port);
 }
 bootstrap();
