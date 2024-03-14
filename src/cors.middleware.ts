@@ -14,16 +14,10 @@ export class CorsMiddleware implements NestMiddleware {
       'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     );
     if (req.method === 'OPTIONS') {
+      // Respond to OPTIONS requests
       res.sendStatus(200);
     } else {
       next();
     }
   }
 }
-
-export const CorsOptions = {
-  origin: '*', // Or specify your list of allowed origins
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  preflightContinue: false,
-  optionsSuccessStatus: 204,
-};
