@@ -4,7 +4,7 @@ import { Request, Response, NextFunction } from 'express';
 @Injectable()
 export class CorsMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
-    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Origin', 'https://cooee-project1.vercel.app');
     res.setHeader(
       'Access-Control-Allow-Methods',
       'GET, POST, PUT, DELETE, OPTIONS',
@@ -14,7 +14,6 @@ export class CorsMiddleware implements NestMiddleware {
       'Origin, X-Requested-With, Content-Type, Accept, Authorization',
     );
     if (req.method === 'OPTIONS') {
-      // Respond to OPTIONS requests
       res.sendStatus(200);
     } else {
       next();
