@@ -1,4 +1,3 @@
-// Middleware to handle CORS at time ho deployment
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 
@@ -21,3 +20,10 @@ export class CorsMiddleware implements NestMiddleware {
     }
   }
 }
+
+export const CorsOptions = {
+  origin: '*', // Or specify your list of allowed origins
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  preflightContinue: false,
+  optionsSuccessStatus: 204,
+};
