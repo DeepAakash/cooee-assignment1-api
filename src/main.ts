@@ -10,12 +10,6 @@ async function bootstrap() {
   // To set 'api' as global prefix for all api requests
   app.setGlobalPrefix('api');
 
-  // To allow port 4200 access the data
-  // app.enableCors({
-  //   origin: [
-  //     'http://localhost:4200']
-  // })
-
   // Define the array of allowed origins
   const allowedOrigins: string[] = [
     'http://localhost:4200',
