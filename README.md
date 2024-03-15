@@ -86,6 +86,10 @@ $ npm run start:prod
 - Backend validation ensures data integrity and prevents unauthorized access.
 
 
+## Deployment
+The application is hosted using Vercel. You can visit the deployed version at Cooee Project-1.
+
+
 ## Future Scope
 
 - Implementation of update and delete features on the table
