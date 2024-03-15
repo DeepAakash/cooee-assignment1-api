@@ -87,7 +87,7 @@ $ npm run start:prod
 
 
 ## Deployment
-The application is hosted using Vercel. You can visit the deployed version at [Cooee Project-1](https://cooee-project1.vercel.app/).
+The full stack application is hosted using Vercel. You can visit the deployed version at [Cooee Project-1](https://cooee-project1.vercel.app/).
 
 
 ## Future Scope
